@@ -1,0 +1,51 @@
+
+	<span class="boxTitle"><h2 tabindex="-1">Metric Search</h2></span>
+	<form id="forms-metric-search">
+	<div class="fieldGroup">
+		<h5 tabindex="-1">Search Filters</h5>
+		<ul>
+			<li>
+				<span> 
+				     <label for="Start Date" title="Start Date">Start Date:</label>
+				     <input name="insertTimestampGreaterThanUI" title="sDate" id="insertTimestampGreaterThanUI" tabindex="0" alt="Start Date" size="25"> 
+					 <input type="hidden" id="insertTimestampMillisGreaterThan" name="insertTimestampMillisGreaterThan" tabindex="0" alt="Start Date Greater Than">
+				</span>
+			</li>
+			<li>
+				<span> 
+			         <label for="End Date" title="End Date">End Date:</label>
+                     <input name="insertTimestampLessThanUI" title="sDate" id="insertTimestampLessThanUI" tabindex="0" alt="End Date" size="25"> 
+                     <input type="hidden" id="insertTimestampMillisGreaterThan" name="insertTimestampMillisLessThan" tabindex="0" alt="End Date Greater Than">
+				</span>
+			</li>
+			<li>
+			   <span> 
+			         <label for="component" title="Component">Component:</label> 
+                     <select id="component" name="component" title="Component"></select>
+			   </span>
+			</li>
+			<li>
+                 <span> 
+                 <label for="metricType" title="Metric Type">Metric Type:</label> 
+                 <select id="metricType" name="metricType" title="Metric Type"></select>
+                </span>
+            </li>
+            <li>
+               <span> 
+                 <label for="severity" title="Metric Name">Name:</label> 
+                 <input name="metricName" title="Metric Name" id="metricName" tabindex="0" alt="Metric Name" size="25">
+                </span>
+             </li>
+            <li>
+                 <span> 
+                     <label for="message" title="Metric Value">Value:</label> 
+                     <input name="metricValue" title="Metric Value" id="metricValue" tabindex="0" alt="Metric Value" size="25">
+                     <!-- <i class="icon_faq" data-help-key="metric-message"></i>-->
+                 </span>
+            </li>
+		</ul>
+		<button id="metric-search" type="button" class="boxBtn" tabindex="0" role="button" value="Search">
+			<span class="btnIcon icon_sprite icon_reTry2" aria-hidden="true"></span><span class="btnText">Search</span>
+		</button>
+	</div>
+</form>

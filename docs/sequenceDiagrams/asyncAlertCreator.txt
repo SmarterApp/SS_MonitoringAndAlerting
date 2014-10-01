@@ -1,0 +1,31 @@
+title "Asynchronous Alert Creator\nHQ module to Hyperic integration"
+
+participant "HypericAlertCreator" as alert
+
+participant "Hyperic Service" as svc
+participant "<Hyperic>\nHQApi" as hyperic
+participant "MetricInfo\nRepository" as metric
+participant "<Hyperic>\ngetAlertDefinitionApi" as api
+participant "HypericResourceCache" as cache
+
+
+
+
+loop every x minutes (x=5 by default)
+alert->+svc:retrieveUnprocessedAlerts
+svc->+metric:findUnprocessedAlerts
+metric-->-svc:alerts
+svc-->-alert:alerts
+alert->+svc:createAlerts
+svc->+cache:getResource
+cache-->-svc:resource
+svc->hyperic:getAlertDefinitionApi()
+hyperic->api:syncAlertDefinitions(alertDefinition)
+api-->hyperic:
+hyperic-->svc:
+svc-->-alert:
+alert->+svc:updateAlerts(createdInHyperic)
+svc->metric:save(metricInfos)
+svc-->-alert:
+
+end

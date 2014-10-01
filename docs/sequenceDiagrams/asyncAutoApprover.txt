@@ -1,0 +1,22 @@
+title "Asynchronous Auto Approver\nHQ module to Hyperic integration"
+
+participant "HypericAutoApprover" as approver
+participant "Hyperic Service" as svc
+participant "<Hyperic>\nHQApi" as hyperic
+participant "<Hyperic>\nAutodiscoveryApi" as api
+participant "HypericResourceCache" as cache
+
+
+
+loop every x minutes (x=5 by default)
+approver->+svc:autoApprove
+svc->hyperic:getAutodiscoveryApi
+hyperic-->svc:api
+svc->api:getQueue
+alt loop for each queue item
+svc->api:approve(queueItem.getId)
+svc->cache:loadResource(queueItem.getName)
+end
+
+svc-->-approver:
+end

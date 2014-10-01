@@ -1,0 +1,53 @@
+title "GET Reference (lookup) Values"
+
+participant "RestClient (WebApp)" as client
+participant ReferenceController as troll
+participant RegistrationController as reg
+participant RegistrationService as service
+
+participant "Registration\nRepository" as repo
+
+
+note over client 
+see "Register Component"
+sequence diagram to understand 
+where server, component, and alertType
+come from in the registration repo
+end note
+client->+troll:GET  \nhttps://server/context/reference/\n{referenceName}
+
+alt if {referenceame} equals severity
+troll-->client:"INFO","ERROR", "DEBUG",...
+
+
+
+else {referenceame} equals servers
+troll->+reg:GET \nhttps://server/context/components
+reg->+service:findRegisteredServers()
+service->+repo:findDistinctServers()
+repo-->-service:
+service-->-reg:
+reg-->-troll:
+troll-->client:serverStrings
+
+else {referenceame} equals components
+troll->+reg:GET \nhttps://server/context/components
+reg->+service:findRegisteredComponents()
+service->+repo:findDistinctComponents()
+repo-->-service:
+service-->-reg:
+reg-->-troll:
+troll-->client:componentStrings
+
+
+else {referenceame} equals alertType
+troll->+reg:GET \nhttps://server/context/components
+reg->+service:findRegisteredAlertTypes()
+service->+repo:findAlertTypes()
+repo-->-service:
+service-->-reg:
+reg-->-troll:
+troll-->client:alertTypeStrings
+end
+
+troll-->-client: HTTP: 200 OK 

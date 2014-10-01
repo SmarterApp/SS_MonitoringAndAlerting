@@ -1,0 +1,63 @@
+
+    <div class="fieldGroup">
+        <span class="boxTitle"><h2 tabindex="-1">Log Search</h2></span>
+<form id="forms-log-search">
+        <h5 tabindex="-1">Search Filters</h5>
+        <ul>
+            <li>
+                <span> 
+                     <label for="Start Date" title="Start Date">Start Date:</label>
+                     <input name="insertTimestampGreaterThanUI" id="insertTimestampGreaterThanUI" tabindex="0" alt="Start Date" size="25"> 
+                     <input type="hidden" id="insertTimestampMillisGreaterThan" name="insertTimestampMillisGreaterThan" tabindex="0" alt="Start Date Greater Than">
+                </span>
+            </li>
+            <li>
+                <span> 
+                     <label for="End Date" title="End Date">End Date:</label>
+                     <input name="insertTimestampLessThanUI"  id="insertTimestampLessThanUI" tabindex="0" alt="End Date" size="25"> 
+                     <input type="hidden" id="insertTimestampMillisGreaterThan" name="insertTimestampMillisLessThan" tabindex="0" alt="End Date Greater Than">
+                </span>
+            </li>
+            <li>
+               <span> 
+                     <label for="component" title="Component">Component:</label> 
+                     <select id="component" name="component" title="Component"></select>
+               </span>
+            </li>
+           <li>
+               <span> 
+                 <label for="server" title="Server">Server:</label> 
+                 <select id="server" name="server" title="Server"></select>
+                </span>
+             </li>
+            <li>
+               <span> 
+                 <label for="severity" title="Severity">Severity:</label> 
+                 <select id="severity" name="severity" title="Severity"></select>
+                </span>
+             </li>
+              <li>
+                 <span> 
+                 <label for="referenceNumber" title="Reference#">Reference#:</label> 
+                 <input type="text" id="referenceNumber" name="referenceNumber" tabindex="0" alt="Reference#" />
+                </span>
+            </li>
+            <li>
+                 <span> 
+                     <label for="message" title="Message">Message:</label> 
+                     <input name="message" title="message" tabindex="0" alt="Message" size="25">
+                     <!-- <i class="icon_faq" data-help-key="log-message"></i>-->
+                 </span>
+            </li>
+             <li>
+               <span> 
+                 <label for="stackTrace" title="Stack Trace">Stack Trace:</label> 
+                 <input type="text" name="stackTrace" tabindex="0" alt="Stack Trace" />
+                </span>
+             </li>
+             </ul>
+        <button type="button" role="button" class="boxBtn" id="log-search" tabindex="0" value="Search">
+            <span class="btnIcon icon_sprite icon_reTry2"  aria-hidden="true"></span><span  class="btnText">Search</span>
+        </button>
+    </div>
+</form>  

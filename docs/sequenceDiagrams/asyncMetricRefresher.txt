@@ -1,0 +1,44 @@
+title "Asynchronous Metric Refresher\nHQ module to Hyperic integration"
+
+participant "HypericMetricRefresher" as refresh
+participant MetricRefresh
+
+participant "Hyperic Service" as svc
+participant "MetricRefresh\nRepository" as repo
+
+participant "<Hyperic>\nHQApi" as hyperic
+participant "<Hyperic>\nMetricApi" as metricApi
+participant "<Hyperic>\nMetric" as metric
+participant "HypericResource\nCache" as cache
+
+
+loop every x minutes (x=5 by default)
+refresh->+svc:retrieveUnprocessedMetricRefresh
+svc->+repo:getUnprocessed
+repo-->-svc:List<MetricRefresh>
+svc-->-refresh:List<MetricRefresh>
+loop for unprocessed MetricRefresh
+refresh->+svc:updateMetric
+svc->cache:getResourceIdForMetric
+
+alt if resource found
+svc->hyperic:getMetricApi
+svc->metricApi:getMetric
+svc->metric:setInterval
+svc->metricApi:syncMetrics
+svc-->refresh:true
+
+else resource NOT found (or any kind of error)
+svc->svc:deferMetricUpdate
+svc-->-refresh:false
+end
+
+alt if refreshed
+refresh->MetricRefresh:setMetricUpdated\nTimestamp(now)
+refresh->MetricRefresh:setProcessedFlag("Y")
+refresh->MetricRefresh:setProcessed\nTimestamp(now)
+refresh->+svc:updateMetricRefresh
+svc->+repo:save
+repo-->-svc:
+svc-->-refresh:
+end

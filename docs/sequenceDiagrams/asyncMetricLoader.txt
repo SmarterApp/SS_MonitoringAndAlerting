@@ -1,0 +1,58 @@
+title "Asynchronous Metric Loader\nHQ module to Hyperic integration"
+
+
+participant "HypericMetricLoader" as loader
+participant MetricLoad
+participant "Hyperic Service" as svc
+participant "MetricLoad\nRepository" as load
+participant "HypericResource\nCache" as cache
+participant "<Hyperic>\nHQApi" as hyperic
+participant "<Hyperic>\nResourceApi" as resource
+participant "<Hyperic>\nMetricApi" as api
+
+
+
+loop every x minutes (x=5 by default)
+loader->+svc:retrieveUnprocessedMetricLoad
+svc->+load:getUnprocessed
+load-->-svc:List<MetricLoad>
+svc-->-loader:List<MetricLoad>
+
+loop for each unprocessed metric load
+loader->+svc:loadMetricsForResource(id)
+svc->+cache:loadMetricsForResource(id)
+cache->hyperic:getResourceApi
+hyperic-->cache:resourceApi
+cache->resource:getResource(id)
+alt if resource.name matches tomcat m&a Metric name
+cache->hyperic:getMetricApi
+hyperic-->cache:metricApi
+cache->api:getMetrics
+alt if metric found
+
+loop for each metric
+cache->cache:cache(metric)
+
+end loop 
+cache-->svc:true
+else not found
+cache->load:save(metricLoad)
+cache-->-svc:false
+end if
+
+
+svc-->-loader:wasMetricLoaded
+alt if metric loaded
+loader->MetricLoad:setLoaded\nTimestamp(now)
+loader->MetricLoad:setProcessesFlag("Y")
+loader->MetricLoad:setProcessed\nTimestamp(now)
+loader->+svc:updateMetricLoad
+svc->+load:save
+load-->-svc:
+svc-->-loader:
+else not loaded
+end
+
+
+end
+end

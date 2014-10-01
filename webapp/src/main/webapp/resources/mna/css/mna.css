@@ -1,0 +1,179 @@
+.expanded-group {
+	padding-left: 10px !important;
+	background-color: #BCBCBF;
+	cursor: pointer;
+}
+
+.expanded-group i {
+	background-position:top;
+}
+
+.collapsed-group i {
+  background-position:bottom
+}
+
+.collapsed-group {
+	background-color: #848486;
+	cursor: pointer;
+	padding-left: 10px !important;
+}
+
+/*
+.hide {
+    display:none;	
+}
+*/
+.modal {
+	position: absolute;
+}
+
+
+.modal-footer {
+    display:inline;	
+}
+
+.modal-body {
+ width:100%	
+}
+
+.modal-body .fieldGroup li span {
+    width:100%;
+}
+
+.modal-body .fieldGroup li {
+    width:100%;
+}
+
+
+
+.modal-body .fieldGroup li label {
+    width:150px;
+}
+
+.modal-footer {
+	width:100%;
+}
+
+.modal-footer button{
+	float:right;
+	position:relative;
+	min-width: 125px;
+}
+
+.modal-footer .deleteBtn {
+    margin-right: 260px;
+}
+
+.modal-footer .saveBtn {
+    margin-right: 135px;
+}
+
+.modal-footer .closeBtn {
+	margin-right: 0px;
+}
+
+a.skipToContent {
+    padding: 6px;
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    overflow:hidden;
+    border: 1px solid white;
+    color: white;
+    background: transparent;
+    -webkit-transition: top .1s ease-out, background .5s linear;
+    transition: top 1s ease-out, background 1s linear;
+    z-index: 100;
+}
+
+a.skipToContent:focus {
+    left:750px;
+    background:#3DB11A;
+    -webkit-transition: top .1s ease-in, background .5s linear;
+    transition: top .1s ease-in, background .5s linear;
+}
+
+a.skipToContent:blur {
+    left:-10000px;
+    -webkit-transition: top .1s ease-out, background .5s linear;
+    transition: top .1s ease-out, background .5s linear;
+}
+
+/*select 2 overrides*/
+.modal-body .fieldGroup ul.select2-choices li{
+    width:auto;
+}
+
+.select2-container-multi .select2-choices .select2-search-field input  {
+    height: 30px;
+}
+
+button.DTTT_button_print{
+	padding-right:50px;
+}
+
+button.DTTT_button:hover{
+    color:;
+    background:url(../../tabletools/images/print.png) no-repeat center right;
+    padding-right:50px;
+}
+
+/*select 2 overrides*/
+.tableBox select{
+    float:none;
+    margin-right:inherit;
+}
+
+
+#memberInputs{
+    display:block;	
+}
+.input-append {
+	display: inline-block;
+	margin-bottom: 10px;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.input-append input{
+    height:28px;
+    border: 1px solid #ccc;
+}
+.modal-body .fieldGroup li .input-append span.add-on {
+	display: inline-block;
+	width: 20px;
+	height: 21px;
+	min-width: 16px;
+	padding: 3px 5px;
+	font-size: 15px;
+	font-weight: normal;
+	text-align: center;
+	text-shadow: 0 1px 0 #ffffff;
+	background-color: #eeeeee;
+	border: 1px solid #ccc;
+}
+
+input.error,  select.error,  .select2-container .error {
+border: 2px solid red;
+background-color: #FFFFD5;
+margin: 0px;
+color: red;
+}
+
+
+.icon_faq{
+    margin:2px;
+    background-image:url(../../sbac/images/faqs.png);
+    width:35px;
+    height:35px;
+    background-repeat:no-repeat;
+    display:inline-block;
+    vertical-align:middle;
+    padding:0px!important;
+    cursor: pointer;
+    }
+    
+.footer .footerText {
+	color: white;
+	padding-top: 4px;
+}

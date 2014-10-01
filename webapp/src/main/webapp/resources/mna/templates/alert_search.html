@@ -1,0 +1,51 @@
+
+	<span class="boxTitle"><h2 tabindex="-1">Alert Search</h2></span>
+	<form id="forms-alert-search">
+	<div class="fieldGroup">
+		<h5 tabindex="-1">Search Filters</h5>
+		<ul>
+			<li>
+				<span> 
+				     <label for="Start Date" title="Start Date">Start Date:</label>
+				     <input name="insertTimestampGreaterThanUI" title="sDate" id="insertTimestampGreaterThanUI" tabindex="0" alt="Start Date" size="25"> 
+					 <input type="hidden" id="insertTimestampMillisGreaterThan" name="insertTimestampMillisGreaterThan" tabindex="0" alt="Start Date Greater Than">
+				</span>
+			</li>
+			<li>
+				<span> 
+			         <label for="End Date" title="End Date">End Date:</label>
+                     <input name="insertTimestampLessThanUI" title="sDate" id="insertTimestampLessThanUI" tabindex="0" alt="End Date" size="25"> 
+                     <input type="hidden" id="insertTimestampMillisGreaterThan" name="insertTimestampMillisLessThan" tabindex="0" alt="End Date Greater Than">
+				</span>
+			</li>
+			<li>
+			   <span> 
+			         <label for="component" title="Component">Component:</label> 
+                     <select id="component" name="component" title="Component"></select>
+			   </span>
+			</li>
+			<li>
+			   <span> 
+			     <label for="severity" title="Severity">Severity:</label> 
+			     <select id="severity" name="severity" title="Severity"></select>
+             	</span>
+		     </li>
+			<li>
+			     <span> 
+			         <label for="message" title="Message">Message:</label> 
+			         <input name="message" title="message" id="message" tabindex="0" alt="Message" size="25">
+			         <!-- <i class="icon_faq" data-help-key="alert-message"></i>-->
+			     </span>
+			</li>
+			<li>
+                 <span> 
+                 <label for="alertType" title="Alert Type">Alert Type:</label> 
+                 <select id="alertType" name="alertType" title="Alert Type"></select>
+                </span>
+            </li>
+		</ul>
+		<button id="alert-search" type="button" class="boxBtn" tabindex="0" role="button" value="Search">
+			<span class="btnIcon icon_sprite icon_reTry2" aria-hidden="true"></span><span class="btnText">Search</span>
+		</button>
+	</div>
+</form>

@@ -1,0 +1,54 @@
+Design Doc TODO:
+	Describe Async processes--on HQ Component Layered View?
+		HypericAlertCreator
+		HypericAutoApprover
+		HypericMetricLoader
+		HypericMetricRefresher
+	Sequence Diagrams
+		Alert: Search, Create (can create a Notification)
+		Log: Search, Create (can create a Notification)
+		Metric: Create (includes creation of MetricInfo in JMX), get, search
+		NotificationGroup: Create, Update, Get, Search, Delete
+		NotificationRule: Create, Update, Get, Search, Delete
+		ReferenceController: lookups registered servers, components, severity levels, alert types
+		Show how JMX project works:
+			Registration--create, get (by id, alternate key), update, remove
+			MetricInfo-- create, get (by id, alternate key),, 
+		Client Interaction (perhaps show client jar)
+			AOP performance (creates Performance metric)
+			Availability (Health metric)
+			AbstractController (Fault Barrier and logging--creates log)
+	Persistence Model
+		Alert
+		MetricLoad
+		MetricRefresh
+		Registration
+		LastCreatedMetric
+		Log
+		MetricInfo
+		Metric
+		NotificationGroup
+		Notification
+	NotificationRule
+
+Install Instructions TODO:
+	Describe needed property files
+		hyperic-conmection.properties (HQ)
+		rest-endpoints.properties (web app)
+		mna-registration.properties (TIB)
+		email.properties (ma-persistence)
+	Installation Scripts--from EC2 project
+
+
+Backlog
+	Security
+	Fault Tolerance (clustering etc)
+
+
+Code Transition
+	Ensure repos are there
+		Shared-build will need to be added
+		Common will be replaced by shared-code
+		TIB will need to be updated
+		M&A wil need to be added
+	Some of EC2 will need to be copied--see install instructions

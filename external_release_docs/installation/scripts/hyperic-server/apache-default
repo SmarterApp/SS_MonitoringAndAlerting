@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+   ServerName XXXXX
+   ProxyRequests off
+   ProxyPreserveHost on
+   ProxyPass / http://localhost:8080/
+   ProxyPassReverse / http://localhost:8080/
+   <Proxy *>
+      Order allow,deny
+      Allow from all
+   </Proxy>
+   ErrorLog /var/log/apache2/XXXXX.err.log
+   CustomLog /var/log/apache2/XXXXX.log combined
+</VirtualHost>

@@ -1,0 +1,49 @@
+title "Create Log in M&A\n(appender with centralized logging)"
+
+participant "Client" as client
+participant "MDC\n<ThreadLocal>" as mdc
+participant "<Abstract>\nRestController" as abstract
+participant "Example Controller\n<extends>\nRestController" as troll
+participant "MonitoringAlerting\nAppender" as appender
+participant "LogClient\n<M&A Client>" as mna
+participant "MnaLog" as log
+participant "LogController" as logC
+
+
+client->+troll:(ex:)GET,POST,PUT,DELETE
+troll->troll:dostuff
+troll->troll:something BAD happens
+troll-->-abstract:exception thrown
+
+note over abstract
+ex gets caught in
+handleException
+@ExceptionHandler
+(Exception.class)
+end note
+
+abstract->+abstract:create ref #
+abstract->mdc:put("refNumKey",ref)
+abstract->+appender:error\n(message+ref, ex)
+appender-->mna:<async> createLog\n(loggingEvent)
+appender-->-abstract:
+mna->log:setServer
+mna->log:setComponent
+mna->log:setNode
+mna->log:setSeverity
+mna->log:setMessage
+mna->log:setReference\n   Number
+mna->log:setStackTrace
+mna->logC:POST metric (application/json)
+note over logC
+NOTE:
+POST Log is 
+nearly identical
+to Create Alert
+detailed in the
+"Create Alert"
+sequence diagram
+end note
+
+abstract->mdc:remove("refNumKey")
+abstract-->-client:HTTP 400: Bad Request\

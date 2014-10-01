@@ -1,0 +1,38 @@
+title Register MetricInfo
+
+participant "RestClient (JMX)" as client
+participant ComponentRegController as troll
+participant RegistrationService as service
+participant JmxCreator as jmx
+participant "<jmx>\nObjectName" as object
+participant MAMetricMBean as bean
+participant "<Spring>\nMBeanExporter" as exporter
+
+
+
+alt coming from "Create Metric"
+client->+troll:POST (application/json) \nhttps://server/context/metricInfo
+
+troll->service:findRegistration(regId)
+service-->troll:registration
+
+else coming from "Register Component"
+client->troll:POST (application/json) \nhttps://server/context/registration
+troll->troll:createRegistration()
+
+end
+
+troll->+jmx:createAndRegister(reg)
+
+jmx->bean:newBeanFromSpring
+jmx->bean:setRegistration(reg)
+jmx->object:new()
+jmx->bean:setObjectName(objectName)
+jmx->exporter:unregisterManagedResource(objectName)
+jmx->exporter:registerManagedResource(mBean,objectName)
+jmx-->-troll:objectName
+
+alt coming from "Create Metric"
+troll->service:updateJmxObjectName
+end
+troll-->-client:

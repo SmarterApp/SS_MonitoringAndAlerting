@@ -1,0 +1,50 @@
+title Create Metric
+
+participant Client
+participant AbstractRestController
+participant MetricController
+participant Metric
+participant MetricService
+participant MetricRepository
+participant MongoOperations
+participant "RestClient (JMX)" as jmx
+
+Client->+MetricController: POST (application/json) \nhttps://server/context/Metric
+MetricController->Metric: @Valid
+alt is not valid
+MetricController-->AbstractRestController: throw \nMethodArgumentNotValidException
+AbstractRestController-->Client: HTTP 400: Bad Request\nInvalid input Error
+
+else
+
+MetricController->+MetricService: addMetric(metric)
+MetricService->Metric:setInsertTimestamp
+MetricService->+MetricRepository: save(metric)
+
+MetricRepository->+MongoOperations: save()
+MongoOperations-->-MetricRepository:
+MetricRepository-->-MetricService:metric
+MetricService-->-MetricController:metric
+
+MetricController->+MetricController:registerMetricInfoAsNeeded(metric)
+MetricController->MetricController:checkCacheForMetricInfo
+alt metricInfo not found in cache
+MetricController->+MetricController:findMetricInfo
+MetricController->-jmx:GET metricInfo
+alt if metricInfo not found by GET
+MetricController->+MetricController:registerMetricInfo
+MetricController->-jmx:POST metricInfo
+
+note over jmx: 
+Note: 
+POST metricInfo is 
+further detailed in the 
+"Register MetricInfo"
+sequence diagram
+end note
+
+end
+end
+MetricController-->-Client:metric
+MetricController-->Client: HTTP header: Location = /metric/{metricId} 
+MetricController-->-Client: HTTP: 200 OK Metric <json/xml>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Server port="8005" shutdown="SHUTDOWN">
+   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on"/>
+   <Listener className="org.apache.catalina.core.JasperListener"/>
+   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
+   <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener"/>
+   <Listener className="org.apache.catalina.mbeans.JmxRemoteLifecycleListener" rmiRegistryPortPlatform="9840" rmiServerPortPlatform="9841"/>
+   <GlobalNamingResources>
+      <Resource name="UserDatabase" auth="Container" type="org.apache.catalina.UserDatabase" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" pathname="conf/tomcat-users.xml"/>
+   </GlobalNamingResources>
+   <Service name="Catalina">
+      <Connector port="80" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="443" URIEncoding="UTF-8"/>
+      <Engine name="Catalina" defaultHost="localhost">
+         <Realm className="org.apache.catalina.realm.LockOutRealm">
+            <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+         </Realm>
+         <!--=====================================================================-->
+         <!--  This is the default "hello world" virtual host that tomcat serves  -->
+         <!--=====================================================================-->
+         <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
+            <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" prefix="localhost_access_log." suffix=".txt" pattern="%h %l %u %t &quot;%r&quot; %s %b"/>
+         </Host>
+         <!--=====================================================================-->
+         <!--  These define all our custom virtual hosts that tomcat servers up   -->
+         <!--=====================================================================-->
+      </Engine>
+   </Service>
+</Server>

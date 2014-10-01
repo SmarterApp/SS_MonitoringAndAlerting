@@ -1,0 +1,20 @@
+title Search Log
+
+Client->+LogController: GET https://server/context/Log?\nreferenceNumber=9999&severity=Error
+
+LogController->LogSearchRequest: new()
+LogController->LogSearchRequest:isValid()
+alt error
+LogController-->Client: HTTP 400: Bad Request\nInvalid input Error
+else all parameters are valid
+
+
+LogController->+LogService: search(searchCriteria)
+LogService->+LogRepository: search(seachCriteria)
+LogRepository->LogSearchRequest: buildQuery()
+LogRepository->MongoOperations: getCount()
+LogRepository->MongoOperations: find()
+LogRepository->SearchResponse:new(results, searchRequest, count)
+LogRepository-->-LogService:searchResponse<Log>
+LogService-->-LogController:searchResponse<Log>
+LogController-->Client: HTTP: 200 OK\n searchResponse <json/xml>

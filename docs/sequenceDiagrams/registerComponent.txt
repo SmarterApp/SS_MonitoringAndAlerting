@@ -1,0 +1,59 @@
+title Register Component (with Hyperic)
+participant MnaRegistrationListener as client
+participant ComponentRegController
+participant ValidationService
+participant RegistrationService
+participant HypericService
+participant RegistrationRepository
+participant JmxCreator
+participant MetricInfoRepository
+
+note over client
+registration 
+of a component 
+is done by a 
+listener on startup 
+of the component
+end note
+client->+ComponentRegController:POST (application/json) \nhttps://server/context/registration
+
+ComponentRegController->+ValidationService:validate(registration)
+ValidationService-->-ComponentRegController:
+alt invalid
+ComponentRegController-->client:errors
+
+else valid
+ComponentRegController->+RegistrationService:addRegistration
+
+RegistrationService->+HypericService:addRegistration
+
+HypericService->RegistrationRepository:search
+
+alt if exists
+HypericService->RegistrationRepository:delete(registration)
+end
+HypericService->RegistrationRepository:save(registration)
+loop for each metricInfo
+HypericService->MetricInfoRepository:save(metricInfo)
+end
+
+HypericService-->-RegistrationService:registration
+
+
+RegistrationService-->-ComponentRegController:registration
+note over JmxCreator: 
+Note:  
+createAndRegister
+further detailed in the 
+"Register MetricInfo"
+sequence diagram
+end note
+
+ComponentRegController->+JmxCreator:createAndRegister(registration)
+
+JmxCreator-->-ComponentRegController:jmxObjectName
+ComponentRegController->RegistrationService:updateJmxObjectName(registration)
+ComponentRegController->HypericService:deferMetricUpdates
+
+ComponentRegController-->client: HTTP header: Location = /metric/{metricId} 
+ComponentRegController-->client: HTTP: 200 OK Metric <json/xml>

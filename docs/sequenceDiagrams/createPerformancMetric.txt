@@ -1,0 +1,48 @@
+title "Time Controller Method \n(via AOP around pointcut)"
+
+participant "Client" as client
+
+participant "<Abstract>\nLoggingAspect" as aspect
+participant "Preceeding\nJoinPoint" as pjp
+participant "ControllerLoggingAspect" as cla
+participant "MnaMetricClient" as mna
+participant "Example Controller" as troll
+participant "MetricController" as metric
+
+client->cla:(ex:)GET,POST,PUT,DELETE
+
+note over cla
+AOP advice
+matches method
+invocation
+(public controller
+method)
+end note
+
+alt @Pointcut\n("execution\n(public * org.opentestsystem.shared.*.controller.*.*(..))")
+
+cla->aspect:timeMethod(ProceedingJoinPoint)
+alt if performanceLogger debugger is enabled
+aspect->aspect:System.currentTimeMillis()
+aspect->pjp:proceed
+else 
+aspect->pjp:proceed
+end
+
+pjp->+troll:(ex:)GET,POST,PUT,DELETE
+troll->troll:dostuff
+
+alt if performanceLogger debugger is enabled
+aspect->aspect:System.currentTimeMillis()
+aspect-->mna:<async> sendPerformanceMetricToMna(methodName,elapsedTime)
+mna->metric:POST metric (application/json)
+note over metric
+NOTE:
+POST Metric is 
+detailed in
+"Create Metric"
+sequence diagram
+end note
+end
+
+aspect-->client:return joinpoint's return

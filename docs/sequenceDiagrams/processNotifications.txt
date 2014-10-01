@@ -1,0 +1,22 @@
+title Process Notifications
+
+participant AlertService\nLogService as client
+participant <NotificationService>\nAbstractNotificationService as service
+participant NotificationRuleRepository as rules
+participant NotificationRepository
+participant MailSender as mail
+
+client->+service:processNotifications(alert or log)
+service->+service:getActiveRules
+service->-rules:findByActive(true)
+rules-->service:list<NotificationRule>
+loop for each active rule
+alt if rule.regex matches property
+service->+service:buildNotificationList
+service->-service:buildNotification
+service->+service:sendNotifications
+service->NotificationRepository:save(notification)
+service->-mail:send(message)
+end
+end
+service-->-client: 

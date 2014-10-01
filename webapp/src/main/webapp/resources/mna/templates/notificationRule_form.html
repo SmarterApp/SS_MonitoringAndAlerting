@@ -1,0 +1,43 @@
+<form id="forms-notificationRule">
+ <input type="hidden" name="id">
+    <div class="fieldGroup">
+        <ul>
+            <li>
+                <span> 
+                     <label for="ruleType" title="Rule Type">Rule Type</label>
+                      <select id="ruleType" name="ruleType" title="Rule Type">
+                        <option></option>
+                        <option>ALERT</option>
+                        <option>LOG</option>
+                       </select>  
+                </span>
+            </li>
+            <li>
+                <span> 
+                    <label  for="active" title="Active">Active</label>
+                    <input type="checkbox" id="active" name="active" value="true" tabindex="0" alt="Active" />
+                </span>
+            </li>
+            <li>
+               <span> 
+                  <label for="attribute" title="Attribute">Attribute</label>
+                  <input type="text" id="attribute" name="attribute" tabindex="0" alt="Attribute" />
+               </span>
+            </li>
+            <li>
+               <span> 
+                  <label for="regex" title="Regex">Regex</label>
+                  <input type="text" id="regex" name="regex" tabindex="0" alt="Regex" />
+               </span>
+            </li>
+           <li>
+               <span> 
+                 <label for="notificationGroups" title="Notification Groups">Notification Groups</label>
+                 <input type="text" id="notificationGroupIds" name="notificationGroupIds" style="width:200px;" tabindex="0" alt="Notification Groups" />
+                </span>
+             </li>
+          </ul>
+    </div>
+</form>  
+
+

@@ -1,0 +1,36 @@
+title Create Alert (same applies for create Log)
+
+participant Client
+participant AbstractRestController
+participant AlertController
+participant Alert
+participant AlertService
+participant AlertRepository
+
+Client->+AlertController: POST (application/json) \nhttps://server/context/alert
+AlertController->Alert:@Valid
+alt if is not valid
+AlertController-->AbstractRestController: throw MethodArgumentNotValidException
+AbstractRestController-->Client: HTTP 400: Bad Request\nInvalid input Error
+else
+
+
+AlertController->+AlertService: addAlert(alertInput)
+AlertService->Alert:setInsertTimestamp
+AlertService->+AlertRepository: save(alert)
+
+AlertRepository->+MongoOperations: save()
+MongoOperations-->-AlertRepository:
+
+AlertRepository-->-AlertService:alert
+AlertService->NotificationService:processNotifications(alert)
+note over MongoOperations: 
+Note:
+processNotifications is further
+detailed in the "Process Notifications"
+sequence diagram 
+end note
+AlertService-->-AlertController:alert
+
+AlertController-->Client: HTTP header: Location = /alert/{alertId} 
+AlertController-->Client: HTTP: 200 OK alert <json/xml>
