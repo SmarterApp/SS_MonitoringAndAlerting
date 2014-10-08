@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>monitoring-alerting.parent</artifactId>
-    <version>R01.00.00</version>
+    <version>R01.00.01</version>
     <name>Smarter Balanced #11 Monitoring and Alerting - Parent Project</name>
     <packaging>pom</packaging>
 
@@ -25,9 +25,9 @@
     </properties>
     
     <scm>
-        <connection>scm:hg:https://bitbucket.org/sbacoss/monitoringandalerting</connection>
-        <developerConnection>scm:hg:https://bitbucket.org/sbacoss/monitoringandalerting</developerConnection>
-        <url>https://bitbucket.org/sbacoss/monitoringandalerting</url>
+        <connection>scm:hg:https://bitbucket.org/sbacoss/monitoringandalerting_release</connection>
+        <developerConnection>scm:hg:https://bitbucket.org/sbacoss/monitoringandalerting_release</developerConnection>
+        <url>https://bitbucket.org/sbacoss/monitoringandalerting_release</url>
     </scm>
 
     <dependencies>
@@ -277,12 +277,5 @@
 
     </dependencies>
     
-    <distributionManagement>
-       <repository>
-            <id>central</id>
-            <name>libs-releases</name>
-            <url>http://airdev.artifactoryonline.com/airdev/libs-releases-local</url>
-        </repository>
-    </distributionManagement>
 
 </project>

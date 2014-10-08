@@ -142,6 +142,7 @@ var NotificationRule = (function(){
 					 delete data.notificationGroups;
 					 data.active = data.active + "";
 					 $('#forms-notificationRule').populate(data);
+					 $("#ruleType").val(data.ruleType);
 					 NotificationRule.bindNotificationGroupSelect(selectedGroups);
 					 $('#notificationGroupIds').select2('data', selectedGroups);
 			     }).fail(function(jqXHR, textStatus, errorThrown) {
