@@ -11,14 +11,29 @@ We would be happy to receive feedback on its capabilities, problems, or future e
 * Use the **Issues** link to file bugs or enhancement requests.
 * Feel free to **Fork** this project and develop your changes!
 
-# sb11-monitoring-alerting
-
-The Monitoring and Alerting component aggregates Logging, Metrics, and Notifications. Log entries and notifications can be searched and managed through a central UI.
-
-
 ## Usage
 
 Many of the Monitoring and Alerting modules require configuration to be setup in Program Management in order for the modules to configure themselves correctly.  A sample configuration file that includes all the properties can be found in: [the repository](external_release_docs/required-progman-configuration.properties).  The contents of the file can be copied and pasted into Program Management.
+
+* `mna.mongo.hostname=mongo.host` - The server on which MongoDB is running
+* `mna.mongo.port=27017` - MongoDB port
+* `mna.mongo.user=` - MongoDB user
+* `mna.mongo.password=` MongoDB password
+* `mna.mongo.dbname=mna` - Name of the MongoDB database
+* `mna.email.active=true` - Enable or disable email from MNA
+* `mna.email.address.from=from@somecorp.com` - From address when email from MNA is sent
+* `mna.email.subject.prefix=TEST EMAIL ONLY -` - Subject of email from MNA 
+* `mna.email.host=email.host` - Host address of mail server
+* `mna.email.port=465` - Email port
+* `mna.email.user=emailuser` - Email username
+* `mna.email.password=emailpassword` - Email password
+* `mna.email.smtp.starttls.enable=true` - Start TLS enabled
+* `mna.email.transport.protocol=smtp` - Email protocol used
+* `mna.email.smtp.auth=true` - Use email authentication?
+* `mna.email.smtp.ssl.enable=true` - Enable ssl over SMTP
+* `mna.rest.context.root=/rest/` - MNA REST context root path
+* `mna.clean.days=30` - How long to retain logs before cleaning out. Not required.  defaults to 30
+* `mna.clean.cron=0 0 0 * * ?` - timing for cron job. Not required.  defaults to 0 0 0 * * ?
 
 ### REST Module
 The REST module is a deployable WAR file (```monitoring-alerting.rest-VERSION.war```) that provides REST endpoints that can be used to access and modify Monitoring and Alerting data.  The REST module has an internal dependency to the SB11 Program Management Client.
