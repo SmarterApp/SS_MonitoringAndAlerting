@@ -61,6 +61,9 @@ body, button, input, select, textarea {
 	font-family: 'Arial', sans-serif;
 	color: #5a5a5a;
 }
+h1, h2, h3, h4, h5, h6 {
+    outline: none;
+}
 /* 
  * Remove text-shadow in selection highlight: h5bp.com/i
  * These selection declarations have to be separate
@@ -562,6 +565,7 @@ td {
 .content {
   min-width: 1024px;
   position: relative;
+  outline: none;
 }
 .boxWrap {
 	/*text-align: center;*/
@@ -1504,6 +1508,7 @@ button {
   margin: 1em 3em 2em 0;
   padding: 1em 1em 0 2em;
   margin-left: 240px;
+  outline: none;
 }
 
 .secondary .nav span {

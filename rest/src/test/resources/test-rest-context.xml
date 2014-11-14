@@ -10,6 +10,14 @@
                 ">
 
     <bean id="restTemplate" class="org.opentestsystem.shared.monitoringalerting.rest.MockRestTemplate"></bean>
+    
+    <bean id="userService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.opentestsystem.shared.security.service.UserService" />
+    </bean>
+    
+    <bean id="progManClient" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.opentestsystem.shared.progman.client.ProgManClient" />
+    </bean>
 
     <mvc:interceptors>
         <bean class="org.opentestsystem.shared.docs.RequestLoggingInterceptor" />
