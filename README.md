@@ -35,6 +35,16 @@ Many of the Monitoring and Alerting modules require configuration to be setup in
 * `mna.clean.days=30` - How long to retain logs before cleaning out. Not required.  defaults to 30
 * `mna.clean.cron=0 0 0 * * ?` - timing for cron job. Not required.  defaults to 0 0 0 * * ?
 
+#### Clustered Environment properties
+These are *optional* properties which are used when configuring a clustered environment behind a load balancer (LB). To activate clustered environment support, simply change the active profile setenv as follows: change `spring.profiles.active` from `server.singleinstance` to `server.loadbalanced`. Furthermore, you will need to set these key/value pairs appropriately: 
+
+* `mna.loadbalanced.url.scheme` - {this should be http or https} 
+* `mna.loadbalanced.server.name` - {the loadbalancer’s name} 
+* `mna.loadbalanced.server.port` - {if your server requires a port, include it here, otherwise put 80 in as the default} 
+* `mna.loadbalanced.includeServerPortInRequestURL` - {boolean true/false value which indicates if the port should be included to resolve the server} 
+* `mna.loadbalanced.server.rest.contextpath` - {REST context name. e.g.: "/mna.rest"} 
+* `mna.loadbalanced.server.webapp.contextpath` - {webapp context name. e.g.: "/mna.webapp". Leave this blank if you are using ROOT as webapp context name}
+
 ### REST Module
 The REST module is a deployable WAR file (```monitoring-alerting.rest-VERSION.war```) that provides REST endpoints that can be used to access and modify Monitoring and Alerting data.  The REST module has an internal dependency to the SB11 Program Management Client.
 
